@@ -1,8 +1,12 @@
 # Tack: Project Bookmarks & Organizer
-
-> Bookmark your projects and switch between them instantly.
+### Bookmark your projects and switch between them instantly.
 
 Tack is a VS Code extension that lets you bookmark your favorite workspaces, organize them into groups, and switch between them seamlessly.
+
+
+> [!IMPORTANT]
+> **This repository is the public issue tracker and release hub for Tack.** 
+> The extension source code is hosted in a private repository. Please use the [Issues Tab](https://github.com/tingspain/tack/issues) to report bugs, submit feedback, or request features!
 
 ## Features
 
