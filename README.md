@@ -8,6 +8,9 @@ Tack is a VS Code extension that lets you bookmark your favorite workspaces, org
 > **This repository is the public issue tracker and release hub for Tack.** 
 > The extension source code is hosted in a private repository. Please use the [Issues Tab](https://github.com/tingspain/tack/issues) to report bugs, submit feedback, or request features!
 
+
+![Demo](https://github.com/tingspain/tack/blob/main/tack_demo.gif?raw=true)
+
 ## Features
 
 - 📌 **Bookmark any folder** — bookmark your current workspace or browse to any folder
