@@ -1,23 +1,27 @@
+
+
 # Tack: Project Bookmarks & Organizer
 ### Bookmark your projects and switch between them instantly.
 
 Tack is a VS Code extension that lets you bookmark your favorite workspaces, organize them into groups, and switch between them seamlessly.
 
+![Demo](https://github.com/tingspain/tack/blob/main/tack_demo.gif?raw=true)
 
 > [!IMPORTANT]
 > **This repository is the public issue tracker and release hub for Tack.** 
 > The extension source code is hosted in a private repository. Please use the [Issues Tab](https://github.com/tingspain/tack/issues) to report bugs, submit feedback, or request features!
 
-
-![Demo](https://github.com/tingspain/tack/blob/main/tack_demo.gif?raw=true)
-
 ## Features
 
 - 📌 **Bookmark any folder** — bookmark your current workspace or browse to any folder
 - 📍 **Pin projects** — pin your most-used projects for instant global access, always surfaced at the top of the list
-- 🗂️ **Organize with groups** — create groups like "Work", "Personal", "Archived" and color-code them for quick visual identification
+- 🗂️ **Organize with groups** — create groups like "Work", "Personal", "Archived" with count badges and custom color coding
+- 🎨 **Custom group colors** — choose from preset theme colors or enter any custom hex code (`#FF6B6B`)
+- 🔄 **Cross-profile sync** — synchronize your bookmarks across multiple VS Code profiles with per-profile activation and live updates
+- 🔍 **Broken bookmark detection** — automatically flags missing project folders with warning indicators and lets you relocate or clean them up
 - 💬 **Bookmark descriptions** — annotate any bookmark with a custom note to remember its purpose, branch context, or any other detail
 - ↕️ **Drag & drop reordering** — reorder bookmarks and groups by dragging them to any position in the sidebar
+- ⌨️ **Keyboard rename** — press `Enter` (macOS) or `F2` (Windows/Linux) to quickly rename any selected bookmark or group
 - ⚡ **Quick switcher** — press `Cmd+Alt+P` (Mac) / `Ctrl+Alt+P` (Windows/Linux) to fuzzy-search all your projects
 - 🚀 **Auto-launcher** — when VS Code opens with no folder, the picker appears automatically
 - 🪟 **Open anywhere** — open a project in the current window or a brand-new window
@@ -51,7 +55,8 @@ Right-clicking a bookmark reveals the full action menu:
 | Reveal in file manager | Right-click a bookmark → **Reveal in Finder / Explorer** |
 | Toggle pin | Right-click a bookmark → **Toggle Pin** — pinned projects float to the top of the list globally across all groups |
 | Add or edit a description | Right-click a bookmark → **Edit Description…** — add a note, branch name, or any contextual reminder |
-| Rename a bookmark | Right-click a bookmark → **Rename Bookmark** |
+| Rename a bookmark | Press `Enter` (Mac) / `F2` (Win/Linux), or right-click → **Rename Bookmark** |
+| Fix missing folder | Right-click a broken bookmark → **Fix Missing Folder…** to choose its new location on disk |
 | Move to a group | Right-click a bookmark → **Move to Group…** |
 | Reorder bookmarks | Drag a bookmark to a new position within the sidebar |
 | Remove a bookmark | Right-click a bookmark → **Remove Bookmark** |
@@ -67,9 +72,17 @@ Right-clicking a group gives you quick access to rename, color, or delete it:
 | Create a group | Click **$(new-folder)** in the sidebar toolbar |
 | Move bookmark to group | Right-click a bookmark → **Move to Group…** |
 | Reorder groups | Drag a group header to a new position in the sidebar |
-| Change group color | Right-click a group → **Change Group Color…** — color-code groups for instant visual identification |
-| Rename a group | Right-click a group → **Rename Bookmark** |
+| Change group color | Right-click a group → **Change Group Color…** — select a preset or type any custom hex color code (e.g. `#FF6B6B`) |
+| Rename a group | Press `Enter` (Mac) / `F2` (Win/Linux), or right-click → **Rename Bookmark** |
 | Remove a group | Right-click a group → **Remove Group** (bookmarks become ungrouped) |
+
+### Broken Bookmark Recovery & Cleanup
+
+If a bookmarked project directory is moved or deleted, Tack automatically identifies it upon startup:
+
+- **Visual warning**: Missing items display a `⚠ Missing folder` badge and warning icon.
+- **Relocate**: Right-click the missing bookmark → **Fix Missing Folder…** to point it to the updated folder location.
+- **Bulk cleanup**: Open the **`···`** menu in the Tack sidebar toolbar → **Remove Broken Bookmarks** to delete all unreachable bookmarks in one action.
 
 ### Drag & Drop Reordering
 
@@ -94,6 +107,32 @@ When importing, you can choose between two strategies:
 - **Merge** _(recommended)_ — adds any bookmarks and groups from the file that don't already exist, leaving your current data intact
 - **Replace** — overwrites all current bookmarks and groups with the contents of the imported file
 
+### Cross-Profile Synchronization
+
+VS Code profiles normally isolate extension storage completely, meaning bookmarks saved in one profile are unavailable in another. Tack provides an integrated **Profile Sync** feature that lets you selectively share bookmarks across your chosen profiles.
+
+Bookmarks are synced through a shared file at `~/.tack/sync.json` outside VS Code's profile silos, giving you full control over which profiles participate.
+
+#### How to Enable & Manage Profile Sync
+
+1. Open the **`···`** menu in the Tack sidebar toolbar → **Profile Sync Settings…** (or run `Tack: Profile Sync Settings…` from the Command Palette).
+2. The settings panel displays all VS Code profiles on your machine using their real names (e.g. **Default Profile**, **Python Dev**, **Web Dev**).
+3. Toggle the switch next to any profile where Tack is installed to enable or disable synchronization for that profile.
+4. Settings are saved globally across all profiles immediately.
+
+| Action | How |
+|--------|-----|
+| Open sync settings | Open the **`···`** menu in the Tack sidebar toolbar → **Profile Sync Settings…** |
+| Sync now (manual pull) | Click **Sync Now** inside the sync settings panel or run `Tack: Sync Now` from the Command Palette |
+| Toggle profile sync | Click any profile card or toggle switch in the Profile Sync settings panel |
+
+#### Sync Characteristics
+
+- **Opt-in only**: Synchronization is disabled by default until you choose to activate it.
+- **Additive first merge**: When a profile enables sync for the first time, its local bookmarks are merged additively into the shared store so no existing projects are lost.
+- **Live updates**: When multiple profiles or windows run concurrently, bookmark changes propagate automatically in real time via file watching (last write wins).
+- **Profile verification**: Only profiles with Tack installed can be enabled for sync. Uninstalled profiles are clearly marked with guidance to install Tack first.
+
 ### Switching Projects
 
 - **Keyboard shortcut**: `Cmd+Alt+P` / `Ctrl+Alt+P` → opens the Quick Switcher
@@ -102,10 +141,10 @@ When importing, you can choose between two strategies:
 
 ## Keyboard Shortcuts
 
-| Shortcut | Action |
-|----------|--------|
-| `Cmd+Alt+P` (Mac) | Open Project Switcher |
-| `Ctrl+Alt+P` (Win/Linux) | Open Project Switcher |
+| Shortcut | Action | Scope |
+|----------|--------|-------|
+| `Cmd+Alt+P` (Mac) / `Ctrl+Alt+P` (Win/Linux) | Open Project Switcher | Global |
+| `Enter` (Mac) / `F2` (Win/Linux) | Rename selected bookmark or group | Tack Sidebar |
 
 ## Requirements
 
@@ -114,7 +153,7 @@ When importing, you can choose between two strategies:
 
 ## Extension Settings
 
-This extension does not add any settings. All data is stored in VS Code's `globalState` and persists across workspaces and restarts.
+By default, Tack stores bookmark data locally in VS Code's profile-scoped `globalState`. When **Profile Sync** is enabled, data is synchronized through `~/.tack/sync.json` across all enabled profiles.
 
 ---
 
